@@ -23,6 +23,10 @@ class Item(models.Model):
 
 class RoomItem(models.Model):
     # the item appears in each room
+    item = models.ForeignKey(
+        'Item',
+        on_delete=models.CASCADE,
+    )
     room = models.ForeignKey(
         'Room',
         on_delete=models.CASCADE,
