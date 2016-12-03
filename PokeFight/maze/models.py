@@ -24,7 +24,7 @@ class Player(models.Model):
         # 獲得 Room Actions
         room = this.location()
         for x in room.neighbors.all():
-            ret.append(this.Action(name = "前往 " + x.name, key = "goto-" + str(x.id)))
+            ret.append(this.Action(name = "前往 " + x.name, key = "goto:" + str(x.id)))
 
         # 獲得 Item Actions
 
