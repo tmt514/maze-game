@@ -12,6 +12,13 @@
 </div>
 {% endif %}
 
+<ul>
+  {% for x in msg %}
+  <li> {{ x | safe | escape }} </li>
+  {% endfor %}
+</ul>
+
+
 {% if player %}
 <div class="action-panel">
 <h2>接下來要幹嘛？</h2>
