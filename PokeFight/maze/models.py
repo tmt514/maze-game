@@ -8,8 +8,8 @@ class Player(models.Model):
     gold = models.IntegerField()
     location_id = models.IntegerField()
 
-    def location(this):
-        return Room.objects.get(id=this.location_id)
+    def location(self):
+        return Room.objects.get(id=self.location_id)
 
     class Action:
         name = ""
@@ -18,13 +18,13 @@ class Player(models.Model):
             self.name = name
             self.key = key
 
-    def get_actions(this):
+    def get_actions(self):
         ret = []
 
         # 獲得 Room Actions
-        room = this.location()
+        room = self.location()
         for x in room.neighbors.all():
-            ret.append(this.Action(name = "前往 " + x.name, key = "goto:" + str(x.id)))
+            ret.append(self.Action(name = "前往 " + x.name, key = "goto:" + str(x.id)))
 
         # 獲得 Item Actions
 
