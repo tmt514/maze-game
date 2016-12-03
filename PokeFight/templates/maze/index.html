@@ -1,0 +1,13 @@
+
+{% if room %}
+<h1> Location: {{ room.name }} </h1>
+{% endif %}
+
+<h2> Status </h2>
+{% if player %}
+<ul>
+  {% for x in player.status %}
+  <li> {{ x.name }}: {{ x.val }} </li>
+  {% endfor %}
+</ul>
+{% endif %}
