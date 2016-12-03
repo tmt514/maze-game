@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
 
 {% if room %}
 <h1> Location: {{ room.name }} </h1>
@@ -8,6 +14,9 @@
 
 <div class="action-panel">
 <h2>接下來要幹嘛？</h2>
+{% for neighbor in room.neighbors.all %}
+<button class="btn btn-default"> 前往 {{ neighbor.name }} </button>
+{% endfor %}
 </div>
 
 
@@ -21,3 +30,6 @@
   <li> $: {{ player.gold }} </li>
 </ul>
 {% endif %}
+
+</body>
+</html>
