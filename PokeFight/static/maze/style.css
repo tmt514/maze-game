@@ -1,0 +1,19 @@
+.room-image {
+  margin: 0 auto;
+  max-width: 60%;
+}
+.room-image img {
+  max-width: 100%;
+}
+.room-info {
+  margin: 0 auto;
+  max-width: 60%;
+  background-color: #030356;
+  border-radius: 10px;
+  border-top: 8px solid #CCF;
+  border-left: 8px solid #C5C5EE;
+  border-right: 8px solid #77C;
+  border-bottom: 8px solid #88D;
+  padding: 10px;
+  color: white;
+}
