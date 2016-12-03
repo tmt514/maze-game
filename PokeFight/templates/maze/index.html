@@ -2,8 +2,10 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'maze/style.css' %}" />
+
 
 </head>
 <body>
@@ -37,11 +39,11 @@
 
 
 <h2> Status </h2>
-<ul>
-  <li> HP: {{ player.health }} </li>
-  <li> ATK: {{ player.attack }} </li>
-  <li> DEF: {{ player.defence }} </li>
-  <li> $: {{ player.gold }} </li>
+<ul class="status-list">
+  <li><i class="fa fa-heart" style="color:red"></i> HP: {{ player.health }} </li>
+  <li><i class="fa fa-wrench" style="color:darkblue"></i> ATK: {{ player.attack }} </li>
+  <li><i class="fa fa-shield" style="color:grey"></i> DEF: {{ player.defence }} </li>
+  <li><span style="background-color:gold;padding:0 4px;border-radius:10px;width:10px;"><i class="fa fa-usd" style="color:#773"></i></span>: {{ player.gold }} </li>
 </ul>
 {% endif %}
 
