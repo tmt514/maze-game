@@ -41,6 +41,8 @@ class Room(models.Model):
     image_url = models.TextField()
 
     neighbors = models.ManyToManyField("self")
+    def __repr__(self):
+        return '<Room id=%d, name=%s, info=%s, image_url=%s>' % (self.id, self.name, self.info, self.image_url)
 
 class Item(models.Model):
     name = models.CharField(max_length=64)
