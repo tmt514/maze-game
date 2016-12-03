@@ -11,6 +11,9 @@ class Player(models.Model):
     def location(this):
         return Room.objects.get(id=this.location_id)
 
+    def get_items(this):
+        return PlayerItem.objects.get(player=this.id)
+
     class Action:
         name = ""
         key = ""
@@ -24,10 +27,12 @@ class Player(models.Model):
         # 獲得 Room Actions
         room = this.location()
         for x in room.neighbors.all():
-            ret.append(this.Action(name = "前往 " + x.name, key = "goto-" + str(x.id)))
+            ret.append(this.Action(name = "前往 " + x.name, key = "goto:" + str(x.id)))
 
         # 獲得 Item Actions
-
+        items = this.get_items()
+        for i in items:
+            ret.append(this.Action(name = "使用 " + i.item.name, key = "use:" + str(i.item.id)))
         # 獲得 Monster Actions
 
         return ret
