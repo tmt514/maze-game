@@ -28,10 +28,12 @@ class RoomItem(models.Model):
     item = models.ForeignKey(
         'Item',
         on_delete=models.CASCADE,
+        null=True
     )
     room = models.ForeignKey(
         'Room',
         on_delete=models.CASCADE,
+        null=True
     )
     number = models.IntegerField()
 

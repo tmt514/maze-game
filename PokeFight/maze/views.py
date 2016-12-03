@@ -13,7 +13,7 @@ def index(request):
     if player_id == None:
         # 初始化新的玩家
         player = Player(name="新玩家", health=10, attack=0, defence=0, gold=0)
-        player.location_id = 1
+        player.location_id = Room.objects.first().id
         player.save()
         player_id = player.id
     else:
