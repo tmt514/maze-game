@@ -12,17 +12,17 @@
 </div>
 {% endif %}
 
+{% if player %}
 <div class="action-panel">
 <h2>接下來要幹嘛？</h2>
-{% for neighbor in room.neighbors.all %}
-<button class="btn btn-default"> 前往 {{ neighbor.name }} </button>
+{% for action in player.get_actions %}
+<a href="?q={{ action.key }}"><button class="btn btn-default"> {{ action.name }} </button></a>
 {% endfor %}
 </div>
 
 
 
 <h2> Status </h2>
-{% if player %}
 <ul>
   <li> HP: {{ player.health }} </li>
   <li> ATK: {{ player.attack }} </li>

@@ -11,6 +11,27 @@ class Player(models.Model):
     def location(this):
         return Room.objects.get(id=this.location_id)
 
+    class Action:
+        name = ""
+        key = ""
+        def __init__(self, name="", key=""):
+            self.name = name
+            self.key = key
+
+    def get_actions(this):
+        ret = []
+
+        # 獲得 Room Actions
+        room = this.location()
+        for x in room.neighbors.all():
+            ret.append(this.Action(name = "前往 " + x.name, key = "goto-" + str(x.id)))
+
+        # 獲得 Item Actions
+
+        # 獲得 Monster Actions
+
+        return ret
+
 
 class Room(models.Model):
     name = models.CharField(max_length=64)
