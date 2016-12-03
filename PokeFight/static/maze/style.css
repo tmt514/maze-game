@@ -17,3 +17,7 @@
   padding: 10px;
   color: white;
 }
+ul.status-list {
+  font-size: 150%;
+  list-style: none;
+}
