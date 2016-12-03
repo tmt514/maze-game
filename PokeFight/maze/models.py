@@ -27,9 +27,9 @@ class Player(models.Model):
             ret.append(self.Action(name = "前往 " + x.name, key = "goto:" + str(x.id)))
 
         # 獲得 Item Actions
-        items = this.playeritem_set
-        #for i in items:
-        #    ret.append(this.Action(name = "使用 " + i.item.name, key = "use:" + str(i.item.id)))
+        items = self.playeritem_set.all()
+        for i in items:
+            ret.append(self.Action(name = "使用 " + i.item.name, key = "use:" + str(i.item.id)))
         # 獲得 Monster Actions
 
         return ret
