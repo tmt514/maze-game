@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import Player, Room, PlayerRoom
+from .models import *
 
 def index(request):
     # 初始化訊息欄位
@@ -26,10 +26,14 @@ def index(request):
         player = Player.objects.get(id=player_id)
         # TODO: handle exception
 
-    msg.append("獲得科科")
     # 取得地點物件
     room = player.location()
 
+    room_items = room.roomitem_set.all()
+    for ri in room_items:
+        msg.append("獲得"+ri.item.name+": "+ri.item.info)
+        pi = PlayerItem(item=ri.item, player=player)
+        pi.save()
 
     ### 第二步：根據目前的指令執行對應動作
     q = request.GET.get('q', None)
