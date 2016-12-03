@@ -17,6 +17,8 @@ class Room(models.Model):
     info = models.TextField()
     image_url = models.TextField()
 
+    neighbors = models.ManyToManyField("self")
+
 class Item(models.Model):
     name = models.CharField(max_length=64)
     info = models.TextField()
