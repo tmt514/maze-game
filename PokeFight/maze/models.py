@@ -1,19 +1,56 @@
 from django.db import models
 
-# models that are FIXED for fun.
-class Player:
-    def __init__(this):
-        this.status = {
-            'HP': 10,
-            'ATK': 1,
-            'DEF': 0,
-        }
-        this.items = {
-        }
+class Player(models.Model):
+    name = models.CharField(max_length=64)
+    health = models.IntegerField()
+    attack = models.IntegerField()
+    defence = models.IntegerField()
+    gold = models.IntegerField()
+    location_id = models.IntegerField()
 
-class Room:
-    def __init__(this, roomname = "default"):
-        this.name = roomname
+    def location(this):
+        return Room.objects.get(id=this.location_id)
+
+
+class Room(models.Model):
+    name = models.CharField(max_length=64)
+    info = models.TextField()
+    image_url = models.TextField()
+
+class Item(models.Model):
+    name = models.CharField(max_length=64)
+    info = models.TextField()
+
+class RoomItem(models.Model):
+    # the item appears in each room
+    room = models.ForeignKey(
+        'Room',
+        on_delete=models.CASCADE,
+    )
+    number = models.IntegerField()
+
+class PlayerRoom(models.Model):
+    room = models.ForeignKey(
+        'Room',
+        on_delete=models.CASCADE,
+    )
+    player = models.ForeignKey(
+        'Player',
+        on_delete=models.CASCADE,
+    )
+
+class PlayerItem(models.Model):
+    item = models.ForeignKey(
+        'Item',
+        on_delete=models.CASCADE,
+    )
+    player = models.ForeignKey(
+        'Player',
+        on_delete=models.CASCADE,
+    )
+
+class Monster(models.Model):
+    pass
 
 
 

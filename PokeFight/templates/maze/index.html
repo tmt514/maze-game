@@ -1,13 +1,23 @@
 
 {% if room %}
 <h1> Location: {{ room.name }} </h1>
+<div class="room-info">
+  {{ room.info }}
+</div>
 {% endif %}
+
+<div class="action-panel">
+<h2>接下來要幹嘛？</h2>
+</div>
+
+
 
 <h2> Status </h2>
 {% if player %}
 <ul>
-  {% for x in player.status %}
-  <li> {{ x.name }}: {{ x.val }} </li>
-  {% endfor %}
+  <li> HP: {{ player.health }} </li>
+  <li> ATK: {{ player.attack }} </li>
+  <li> DEF: {{ player.defence }} </li>
+  <li> $: {{ player.gold }} </li>
 </ul>
 {% endif %}
