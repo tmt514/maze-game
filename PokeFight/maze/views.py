@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import Player, Room
+from .models import Player, Room, PlayerRoom
 
 def index(request):
     # 初始化訊息欄位
@@ -26,17 +26,36 @@ def index(request):
         player = Player.objects.get(id=player_id)
         # TODO: handle exception
 
+    msg.append("獲得科科")
     # 取得地點物件
     room = player.location()
-    msg.append("獲得科科")
-
-
 
 
     ### 第二步：根據目前的指令執行對應動作
+    q = request.GET.get('q', None)
+    if q == None:
+        pass
+    else:
+        cmd, param = q.split(":")
+        if cmd == "goto":
+            roomid = int(param)
+            msg.append("依依不捨地離開了 <strong>" + room.name + "</strong>!")
+            room = Room.objects.get(id=roomid)
+            player.location_id = roomid
+            player.save()
+            msg.append("移動到 <strong>" + room.name + "</strong>!")
+        elif cmd == "item":
+            #TODO: use of items
+            pass
 
 
 
+    # 判斷是不是新的地點
+    if player.playerroom_set.filter(room=room).exists() == False:
+        new_playerroom = PlayerRoom(room=room, player=player)
+        new_playerroom.save()
+        msg.append("探索了新的地點 <strong>" + room.name + "</strong>!")
+        # TODO: 獲得道具
 
 
 
