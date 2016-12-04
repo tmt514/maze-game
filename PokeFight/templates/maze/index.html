@@ -27,6 +27,21 @@
   {% endfor %}
 </ul>
 
+<div class="container">
+<h2>出現惹</h2>
+{% for monster in monsters %}
+<h4>{{monster.name}}</h4>
+{% if monster.image_url %}
+<div><img src="{{ monster.image_url }}"></div>
+<ul class="status-list">
+  <li><i class="fa fa-heart" style="color:red"></i> HP: {{ monster.health }} </li>
+  <li><i class="fa fa-wrench" style="color:darkblue"></i> ATK: {{ monster.attack }} </li>
+  <li><i class="fa fa-shield" style="color:grey"></i> DEF: {{ monster.defence }} </li>
+</ul>
+{% endif %}
+{% endfor %}
+</div>
+
 
 {% if player %}
 <div class="action-panel">

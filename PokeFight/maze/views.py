@@ -28,12 +28,8 @@ def index(request):
 
     # 取得地點物件
     room = player.location()
-
-    room_items = room.roomitem_set.all()
-    for ri in room_items:
-        msg.append("獲得"+ri.item.name+": "+ri.item.info)
-        pi = PlayerItem(item=ri.item, player=player)
-        pi.save()
+    # 取得monster
+    monsters = room.monster_set.all()
 
     ### 第二步：根據目前的指令執行對應動作
     q = request.GET.get('q', None)
@@ -48,10 +44,17 @@ def index(request):
             player.location_id = roomid
             player.save()
             msg.append("移動到 <strong>" + room.name + "</strong>!")
-        elif cmd == "item":
-            #TODO: use of items
-            pass
-
+        elif cmd == "use":
+            pi = PlayerItem.objects.get(id=int(param))
+            if pi.item.name == 'banana':
+                player.attack += 3
+                player.save(update_fields=['attack'])
+                pi.delete()
+        elif cmd == "attack":
+            mon = Monster.objects.get(id=int(param))
+            msg.append("對 <strong>" + mon.name + "</strong> 造成了<strong>" + str(player.attack) + "</strong>傷害，效果卓著!")
+            mon.health -= player.attack
+            mon.save(update_fields=['health'])
 
 
     # 判斷是不是新的地點
@@ -60,6 +63,11 @@ def index(request):
         new_playerroom.save()
         msg.append("探索了新的地點 <strong>" + room.name + "</strong>!")
         # TODO: 獲得道具
+        room_items = room.roomitem_set.all()
+        for ri in room_items:
+            msg.append("獲得"+ri.item.name+": "+ri.item.info)
+            pi = PlayerItem(item=ri.item, player=player)
+            pi.save()
 
 
 
@@ -68,5 +76,6 @@ def index(request):
         'msg': msg,
         'room': room,
         'player': player,
+        'monsters': monsters,
     }
     return HttpResponse(template.render(context, request))

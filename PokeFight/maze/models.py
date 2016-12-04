@@ -3,7 +3,7 @@ from django.db import models
 class Player(models.Model):
     name = models.CharField(max_length=64)
     health = models.IntegerField()
-    attack = models.IntegerField()
+    attack = models.IntegerField(default=0)
     defence = models.IntegerField()
     gold = models.IntegerField()
     location_id = models.IntegerField()
@@ -28,10 +28,12 @@ class Player(models.Model):
 
         # 獲得 Item Actions
         items = self.playeritem_set.all()
-        for i in items:
-            ret.append(self.Action(name = "使用 " + i.item.name, key = "use:" + str(i.item.id)))
+        for pi in items:
+            ret.append(self.Action(name = "使用 " + pi.item.name, key = "use:" + str(pi.id)))
         # 獲得 Monster Actions
-
+        monsters = room.monster_set.all()
+        for mon in monsters:
+            ret.append(self.Action(name = "揍爆" + mon.name, key = "attack:" + str(mon.id)))
         return ret
 
 
@@ -83,12 +85,18 @@ class PlayerItem(models.Model):
     )
 
 class Monster(models.Model):
-    pass
-
-
-
-
-
-
+    health = models.IntegerField(default=0)
+    attack = models.IntegerField(default=0)
+    defence = models.IntegerField(default=0)
+    name = models.TextField(default='')
+    move = models.TextField(default='')
+    image_url = models.TextField(default='')
+    room = models.ForeignKey(
+        'Room',
+        on_delete=models.CASCADE,
+        null=True
+    )
 
 # Create your models here.
+class Money(models.Model):
+    pass
